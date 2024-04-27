@@ -8,6 +8,8 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+echo "Please enter DB password:"
+read -s mysql_root_password
 
 VALIDATE(){
    if [ $1 -ne 0 ]
@@ -18,6 +20,7 @@ VALIDATE(){
         echo -e "$2...$G SUCCESS $N"
     fi
 }
+
 if [ $USERID -ne 0 ]
 then
     echo "Please run this script with root access."
@@ -37,9 +40,9 @@ systemctl start mysqld &>>$LOGFILE
 VALIDATE $? "Starting MySQL Server"
 
 # mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
-# VALIDATE $? "Setting root password"
+# VALIDATE $? "Setting up root password"
 
-# below line ia usefull for idempotent purpos
+#Below code will be useful for idempotent nature
 mysql -h db.viswaws.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
 then
