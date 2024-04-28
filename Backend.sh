@@ -8,7 +8,8 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-
+echo "Please enter DB password:"
+read -s mysql_root_password
 VALIDATE(){
    if [ $1 -ne 0 ]
    then
@@ -46,5 +47,41 @@ dnf module disable nodejs -y &>>$LOGFILE
      else
       echo -e "User is already created...$Y SKIPPING $N"
 fi
+
+  mkdir -p /app &>>$LOGFILE
+     VALIDATE $? "Creating  app directory" 
+
+     curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+  VALIDATE $? "Downloading Backend code" 
+
+  cd /app
+  unzip /tmp/backend.zip
+
+  VALIDATE $? "Extracted backend code"
+
+  npm install
+VALIDATE $? "Isntalling nodejs dependencies"  
+ 
+ cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+  VALIDATE $? "Copied backend service"
+  systemctl daemon-reload
+  systemctl start backend
+  systemctl enable backend
+VALIDATE $? "Backend is enabbled"  
+
+ dnf install mysql-server -y &>>$LOGFILE
+VALIDATE $? "Installing MySQL Server"
+
+mysql -h db.viswaws.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+if [ $? -ne 0 ]
+then
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
+    VALIDATE $? "MySQL Root password Setup"
+else
+    echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
+fi
+systemctl restart backend &>>$LOGFILE
+VALIDATE $? "Restarting Backend"
+
 
  
