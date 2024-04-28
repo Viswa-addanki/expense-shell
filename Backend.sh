@@ -38,7 +38,7 @@ dnf module disable nodejs -y &>>$LOGFILE
 
  id expense -y &>>$LOGFILE
 
- if [$? -ne 0]
+ if [ $? -ne 0]
  then
      useradd expense
      VALIDATE $? "Creating a new user"
