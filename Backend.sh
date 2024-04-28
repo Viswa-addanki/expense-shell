@@ -55,6 +55,7 @@ fi
   VALIDATE $? "Downloading Backend code" 
 
   cd /app
+  rm -rf./app/*
   unzip /tmp/backend.zip &>>$LOGFILE
 
   VALIDATE $? "Extracted backend code"
@@ -70,7 +71,7 @@ VALIDATE $? "Isntalling nodejs dependencies"
 
   systemctl start backend &>>$LOGFILE
    VALIDATE $? "Start backend"
-   
+
   systemctl enable backend &>>$LOGFILE
    VALIDATE $? "enable backend"
 
