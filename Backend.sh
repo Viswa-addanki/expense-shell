@@ -69,14 +69,14 @@ VALIDATE $? "Isntalling nodejs dependencies"
   systemctl daemon-reload &>>$LOGFILE
  VALIDATE $? "Daemon reload"
 
-  systemctl start Backend &>>$LOGFILE
-   VALIDATE $? "Start backend"
+  systemctl start backend &>>$LOGFILE
+VALIDATE $? "Starting backend"
 
-  systemctl enable Backend &>>$LOGFILE
-   VALIDATE $? "enable backend"
+ systemctl enable backend &>>$LOGFILE
+VALIDATE $? "Enabling backend"
 
- dnf install mysql-server -y &>>$LOGFILE
-VALIDATE $? "Installing MySQL Server"
+ ddnf install mysql -y &>>$LOGFILE
+VALIDATE $? "Installing MySQL Client"
 
 mysql -h db.viswaws.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
