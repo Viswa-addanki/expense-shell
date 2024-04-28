@@ -36,7 +36,7 @@ dnf module disable nodejs -y &>>$LOGFILE
  dnf install nodejs -y &>>$LOGFILE
  VALIDATE $? "instaling  nodejs 20"
 
- id expense -y &>>$LOGFILE
+ id expense &>>$LOGFILE
 
  if [ $? -ne 0 ]
  then
