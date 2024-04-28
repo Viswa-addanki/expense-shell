@@ -5,7 +5,7 @@ Description = Backend Service
 User=expense
 Environment=DB_HOST="db.viswaws.online"
 ExecStart=/bin/node /app/index.js
-SyslogIdentifier=Backend
+SyslogIdentifier=backend
 
 [Install]
 WantedBy=multi-user.target
