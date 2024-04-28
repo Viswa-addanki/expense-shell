@@ -81,4 +81,4 @@ mysql -h db.viswaws.online -uroot -p${mysql_root_password} < /app/schema/backend
 VALIDATE $? "Schema loading"
 
 systemctl restart backend &>>$LOGFILE
-VALIDATE $? "Restarting Backend"
+VALIDATE $? "Restarting Backend test"
