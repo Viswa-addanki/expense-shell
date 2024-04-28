@@ -55,7 +55,7 @@ fi
   VALIDATE $? "Downloading Backend code" 
 
   cd /app
-  unzip /tmp/backend.zip
+  unzip /tmp/backend.zip &>>$LOGFILE
 
   VALIDATE $? "Extracted backend code"
 
@@ -64,10 +64,15 @@ VALIDATE $? "Isntalling nodejs dependencies"
  
  cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
   VALIDATE $? "Copied backend service"
-  systemctl daemon-reload
-  systemctl start backend
-  systemctl enable backend
-VALIDATE $? "Backend is enabbled"  
+
+  systemctl daemon-reload &>>$LOGFILE
+ VALIDATE $? "Daemon reload"
+
+  systemctl start backend &>>$LOGFILE
+   VALIDATE $? "Start backend"
+   
+  systemctl enable backend &>>$LOGFILE
+   VALIDATE $? "enable backend"
 
  dnf install mysql-server -y &>>$LOGFILE
 VALIDATE $? "Installing MySQL Server"
