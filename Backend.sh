@@ -69,10 +69,10 @@ VALIDATE $? "Isntalling nodejs dependencies"
   systemctl daemon-reload &>>$LOGFILE
  VALIDATE $? "Daemon reload"
 
-  systemctl start backend &>>$LOGFILE
+  systemctl start Backend &>>$LOGFILE
    VALIDATE $? "Start backend"
 
-  systemctl enable backend &>>$LOGFILE
+  systemctl enable Backend &>>$LOGFILE
    VALIDATE $? "enable backend"
 
  dnf install mysql-server -y &>>$LOGFILE
