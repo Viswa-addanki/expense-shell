@@ -1,5 +1,5 @@
 [Unit]
-Description = Backend Service
+Description = backend Service
 
 [Service]
 User=expense
