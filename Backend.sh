@@ -78,7 +78,8 @@ dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "Installing MySQL Client"
 
 mysql -h db.viswaws.online -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
-VALIDATE $? "Schema loading"
+VALIDATE $? "Schema loading 1"
 
 systemctl restart backend &>>$LOGFILE
 VALIDATE $? "Restarting Backend"
+
