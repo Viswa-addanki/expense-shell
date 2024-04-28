@@ -43,7 +43,7 @@ dnf module disable nodejs -y &>>$LOGFILE
      VALIDATE $? "Creating a new user"
 
      else
-      echo -e "User is already created...$Y SKIPPING $N
+      echo -e "User is already created...$Y SKIPPING $N"
 fi
 
  
