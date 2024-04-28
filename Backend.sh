@@ -36,7 +36,14 @@ dnf module disable nodejs -y &>>$LOGFILE
  dnf install nodejs -y &>>$LOGFILE
  VALIDATE $? "instaling  nodejs 20"
 
- useradd expense &>>$LOGFILE
- VALIDATE $? "creating expense user"
+ id expense &>>$LOGFILE
+ if [$? -ne 0]
+ then
+     useradd expense
+     VALIDATE $? "Creating a new user"
+
+     else
+      echo -e "User is already created...$Y SKIPPING $N
+fi
 
  
